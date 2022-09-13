@@ -3,6 +3,8 @@
     align-items: center;
     box-shadow: 0 0 10px rgba(51, 51, 51, 0.5);
     height: 80px;
+    background: transparent;
+    backdrop-filter: blur(10px);
     .logo {
         a {
             color: #000;
