@@ -1,0 +1,13 @@
+.User{
+    width: calc(100% - 320px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .start_btn{
+        display: block;
+        color: #fff;
+        background-color: var(--element);
+        padding: 10px 20px;
+        border-radius: 10px;
+    }
+}

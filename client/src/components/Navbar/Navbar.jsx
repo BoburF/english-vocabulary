@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import "./Navbar.scss";
 
 const Navbar = () => {
@@ -21,13 +21,13 @@ const Navbar = () => {
           <div className="menu">
             <ul className="menu_df row align_items_center">
               <li>
-                <Link to={"/"}>Home</Link>
+                <NavLink to={"/"}>Home</NavLink>
               </li>
               <li className="sign_parent">
-                <Link className="sign" to={"/sign/in"}>Sign in</Link>
+                <NavLink className="sign" to={"/sign/in"}>Sign in</NavLink>
               </li>
               <li className="sign_parent">
-                <Link className="sign" to={"/sign/up"}>Sign up</Link>
+                <NavLink className="sign" to={"/sign/up"}>Sign up</NavLink>
               </li>
             </ul>
           </div>
