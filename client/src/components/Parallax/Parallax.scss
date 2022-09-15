@@ -1,0 +1,41 @@
+.parallax{
+    width: 100%;
+    height: 0;
+    .circle{
+        position: absolute;
+        box-shadow: 0 0 20px var(--element);
+        border-radius: 50%;
+        background-color: var(--element);
+        z-index: 99 !important;
+    }
+    .top_left{
+        top: 100px !important;
+        left: 25% !important;
+        width: 50px;
+        height: 50px;
+    }
+    .top_right{
+        top: 300px !important;
+        left: 75% !important;
+        width: 80px;
+        height: 80px;
+    }
+    .bottom_left{
+        top: 600px !important;
+        left: 60% !important;
+        width: 110px;
+        height: 110px;
+    }
+    .bottom_right{
+        top: 700px !important;
+        left: 30% !important;
+        width: 100px;
+        height: 100px;
+    }
+    .bottom_bottom{
+        top: 40px !important;
+        left: 55% !important;
+        width: 65px;
+        height: 65px;
+    }
+}
