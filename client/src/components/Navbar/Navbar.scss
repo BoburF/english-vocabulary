@@ -53,11 +53,11 @@
                     display: block;
                     width: 100%;
                     height: 100%;
-                    color: #fff;
+                    color: var(--abs);
                     padding: 10px 30px;
                     transition: .3s;
                     &.active{
-                        background-color: #fff;
+                        background-color: var(--abs);
                         color: var(--element);
                     }
                 }

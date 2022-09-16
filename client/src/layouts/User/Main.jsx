@@ -7,7 +7,9 @@ const Main = () => {
   return (
     <div className="Main">
       <Sidebar />
-      <Outlet />
+      <div className="page">
+        <Outlet />
+      </div>
     </div>
   );
 };

@@ -2,6 +2,7 @@
 
 :root {
     --element: #13a3f7;
+    --abs: #fff;
 }
 
 * {
@@ -19,15 +20,15 @@ body {
 }
 
 *::-webkit-scrollbar {
-    width: 10px;
+    width: 6px;
     height: 0;
 }
 
 *::-webkit-scrollbar-thumb {
-    border: 2px solid var(--abs);
+    border: 2px solid var(--element);
     background-clip: padding-box;
     border-radius: 20px;
-    background-color: var(--abs);
+    background-color: var(--element);
 }
 
 .container {
