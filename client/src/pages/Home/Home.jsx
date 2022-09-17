@@ -7,7 +7,7 @@ const Home = () => {
     <div className="Home">
       <div className="hero">
         <div className="container">
-          <div className="row align_items_center justify_content_between">
+          <div className="row align_items_center justify_content_between class">
             <div className="img">
               <img src="/img/hero_bcg.png" alt="img"/>
               <div className="title">

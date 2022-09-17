@@ -1,8 +1,30 @@
+.button_media {
+    position: absolute;
+    display: none;
+    top: 15px;
+    left: 10px;
+    z-index: 99;
+    transition: .5s;
+    svg {
+        width: 40px;
+        height: 40px;
+        color: var(--abs);
+        background-color: var(--element);
+        padding: 10px;
+        border-radius: 50%;
+    }
+}
+
 .Sidebar {
+    z-index: 90;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 320px;
     height: 100vh;
     max-height: 100vh;
     background-color: #eee;
+    transition: .5s;
 
     a {
         color: #000;
@@ -23,10 +45,12 @@
             border-bottom-right-radius: 10px;
             border-top-right-radius: 10px;
             background-color: var(--element);
+
             a {
                 display: flex;
                 align-items: center;
                 color: var(--abs);
+
                 .user_img {
                     width: 50px;
                     height: 50px;
@@ -49,9 +73,10 @@
                 }
             }
 
-            &:hover{
+            &:hover {
                 background-color: var(--abs);
-                a{
+
+                a {
                     color: var(--element);
                 }
             }
@@ -68,14 +93,37 @@
                 transition: .3s;
                 overflow: scroll;
                 color: var(--element);
+
                 &:hover {
                     background-color: var(--abs);
                 }
-                &.active{
+
+                &.active {
                     color: var(--abs);
                     background-color: var(--element);
                 }
             }
         }
+    }
+}
+
+@media (max-width: 920px) {
+    .button_media {
+        display: block;
+    }
+
+    .fsa{
+        &::after{
+            content: '';
+            display: block;
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            z-index: 2;
+        }
+    }
+
+    .Sidebar {
+        left: -100%;
     }
 }

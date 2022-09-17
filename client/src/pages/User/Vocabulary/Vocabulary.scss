@@ -13,6 +13,25 @@
     .type_vocabulary {
         .form {
             width: 50%;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+
+            .change_btn {
+                background-color: var(--element);
+                color: var(--abs);
+                padding: 10px 20px;
+                font-size: 16px;
+                border: none;
+                border-radius: 10px;
+                margin-top: 10px;
+                transition: .3s;
+
+                &:hover {
+                    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+                }
+            }
 
             .title {
                 text-align: center;
@@ -93,11 +112,13 @@
                             height: 100%;
                             overflow: hidden !important;
                             transition: .3s;
-                            svg{
+
+                            svg {
                                 width: 20px;
                                 height: 20px;
                             }
-                            &:hover{
+
+                            &:hover {
                                 transform: scale(1.2);
                             }
                         }
@@ -109,6 +130,54 @@
                         max-height: 150px !important;
                         height: 100px !important;
                         overflow: scroll;
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: 1280px) {
+
+        .type_vocabulary,
+        .voca {
+            display: flex;
+            justify-content: space-around;
+        }
+    }
+
+    @media (max-width: 550px) {
+        .voca {
+            .table {
+                table {
+                    margin-top: 30px;
+                    width: 100%;
+
+                    thead {
+                        background-color: #eee;
+
+                        th {
+                            font-size: 14px;
+                            &.none_mobile {
+                                display: none !important;
+                            }
+                        }
+                    }
+
+                    tr {
+                        td {
+                            font-size: 14px;
+                            &.none_mobile {
+                                display: none !important;
+                            }
+                        }
+
+                        .description {
+                            padding: 10px;
+                            text-align: start;
+                            max-height: 150px !important;
+                            height: 100px !important;
+                            overflow: scroll;
+                        }
                     }
                 }
             }

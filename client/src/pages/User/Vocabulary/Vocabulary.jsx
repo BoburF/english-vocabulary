@@ -25,35 +25,50 @@ const Vocabulary = () => {
     },
   ]);
 
+  const [none, setNone] = useState('none')
+  const [none1, setNone1] = useState('flex')
+
+  const Change = (name) => {
+    if(name === 'right'){
+      setNone1('none')
+      setNone('flex')
+    }else{
+      setNone('none')
+      setNone1('flex')
+    }
+  }
+
   return (
     <div className="Vocabulary">
       <div className="type_vocabulary">
-        <div className="form left">
+        <div className="form left" style={{display: none}}>
           <h2 className="title">Words with translation</h2>
           <form>
             <input type="text" placeholder="Word..." />
             <input type="text" placeholder="Translation..." />
             <button>Add to vocaboost</button>
           </form>
+          <button className="change_btn left" onClick={(e) => Change(e.currentTarget.className.split(' ')[1])}>Change vocabulary</button>
         </div>
-        <div className="form right">
+        <div className="form right" style={{display: none1}}>
           <h2 className="title">Words with translation and description</h2>
           <form>
             <input type="text" placeholder="Word..." />
             <textarea placeholder="Description..." />
             <button>Add to vocaboost</button>
           </form>
+          <button className="change_btn right" onClick={(e) => Change(e.currentTarget.className.split(' ')[1])}>Change vocabulary</button>
         </div>
       </div>
       <div className="voca">
-        <div className="table left">
+        <div className="table left" style={{display: none}}>
           <table>
             <thead>
               <tr>
                 <th>Word</th>
                 <th>Translation</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th className="none_mobile">Edit</th>
+                <th className="none_mobile">Delete</th>
               </tr>
             </thead>
             <tbody>
@@ -63,7 +78,7 @@ const Vocabulary = () => {
                   <td>
                     <div className="description">{item.translation}</div>
                   </td>
-                  <td>
+                  <td className="none_mobile">
                     <div className="edit">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -77,7 +92,7 @@ const Vocabulary = () => {
                       </svg>
                     </div>
                   </td>
-                  <td>
+                  <td className="none_mobile">
                     <div className="delete">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -100,14 +115,14 @@ const Vocabulary = () => {
             </tbody>
           </table>
         </div>
-        <div className="table right">
+        <div className="table right" style={{display: none1}}>
           <table>
             <thead>
               <tr>
                 <th>Word</th>
                 <th>Translation</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th className="none_mobile">Edit</th>
+                <th className="none_mobile">Delete</th>
               </tr>
             </thead>
             <tbody>
@@ -117,7 +132,7 @@ const Vocabulary = () => {
                   <td>
                     <div className="description">{item.translation}</div>
                   </td>
-                  <td>
+                  <td className="none_mobile">
                     <div className="edit">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -131,7 +146,7 @@ const Vocabulary = () => {
                       </svg>
                     </div>
                   </td>
-                  <td>
+                  <td className="none_mobile">
                     <div className="delete">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

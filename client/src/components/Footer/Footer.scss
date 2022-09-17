@@ -6,4 +6,11 @@
             color: var(--element);
         }
     }
+    @media (max-width: 520px) {
+        width: 100%;
+        padding: 30px 20px;
+        display: flex;
+        justify-content: space-between;
+        
+    }
 }

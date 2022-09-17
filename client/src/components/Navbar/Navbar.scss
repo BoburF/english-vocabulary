@@ -6,6 +6,7 @@
     background: transparent;
     padding: 20px 0;
     backdrop-filter: blur(10px);
+
     .logo {
         a {
             color: #000;
@@ -21,15 +22,18 @@
             li {
                 cursor: pointer;
                 margin: 0 30px;
+
                 a {
                     width: 100%;
                     color: #000;
                     position: relative;
                     transition: .3s;
-                    &:hover{
+
+                    &:hover {
                         color: #000;
                     }
-                    &.active{
+
+                    &.active {
                         color: var(--element);
                     }
                 }
@@ -37,12 +41,11 @@
 
             .sign_parent {
                 margin: 0 10px;
-                background-color: var(--element);
                 display: flex;
                 align-items: center;
-                border-radius: 20px;
                 justify-content: center;
                 padding: 0;
+                border-radius: 20px;
                 transition: .3s;
 
                 &:hover {
@@ -54,15 +57,63 @@
                     width: 100%;
                     height: 100%;
                     color: var(--abs);
+                    background-color: var(--element);
                     padding: 10px 30px;
                     transition: .3s;
-                    &.active{
+                    border-radius: 20px;
+
+                    &.active {
                         background-color: var(--abs);
                         color: var(--element);
                     }
                 }
             }
 
+        }
+    }
+
+    @media (max-width: 780px) {
+        .logo {
+            a {
+                font-size: 16px;
+            }
+        }
+
+        .menu {
+            .menu_df {
+                li {
+                    margin: 0 20px;
+                }
+
+                .sign_parent {
+                    margin: 0 5px;
+
+                    .sign {
+                        font-size: 16px;
+                        padding: 5px 15px;
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: 520px) {
+        .logo {
+            width: 100%;
+
+            a {
+                text-align: center;
+            }
+
+            margin-bottom: 20px;
+        }
+
+        .menu {
+            width: 100%;
+
+            .menu_df {
+                justify-content: center;
+            }
         }
     }
 }
