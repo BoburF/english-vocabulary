@@ -1,0 +1,32 @@
+.Settings{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .title{
+        margin-bottom: 40px;
+    }
+    .form{
+        display: flex;
+        flex-direction: column;
+        input{
+            padding: 10px 20px;
+            font-size: 16px;
+            outline: none;
+            border: 1px solid #000;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: var(--element);
+            color: var(--abs);
+            border: none;
+            font-size: 16px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            &:hover{
+                box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
+            }
+        }
+    }
+}
