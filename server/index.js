@@ -13,7 +13,7 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.static(path.join(__dirname, 'public')))
 
 // routers
-app.use(require('./routes/user.routes.ts'))
+app.use(require('./routes/user.routes.js'))
 
 const port = process.env.PORT || 8000
 app.listen(port, ()=>{
