@@ -3,13 +3,17 @@ const secret = process.env.KEY
 
 class Token{
     async generateToken(user){
-        return await jwt.sign(user,secret)
+        return jwt.sign(user, secret, {
+            expiresIn: "7d"
+        })
     }
 
     async verifyToken(user){
-        return await jwt.verify(user,secret, (err)=>{
-            if(!err){
+        return jwt.verify(user, secret, (err, decodedToken)=>{
+            if(err){
                 return err
+            }else{
+                return decodedToken
             }
         })
     }
