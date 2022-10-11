@@ -9,16 +9,16 @@ const SignUp = () => {
   const [errorPassword, seterrorPassword] = useState('')
 
   const validName = () => {
-    if(name.length < 5){
-      setErrorName('Character must be greater or equal than 6')
+    if(name.length < 5 && name.length > 1){
+      setErrorName('Character must be greater than 6')
     }else{
       setErrorName('')
     }
   }
 
   const validPassword = () => {
-    if(password.length < 5){
-      seterrorPassword('Character must be greater or equal than 6')
+    if(password.length < 5 && password.length > 1){
+      seterrorPassword('Character must be greater than 6')
     }else{
       seterrorPassword('')
     }
