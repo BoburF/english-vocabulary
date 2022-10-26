@@ -10,7 +10,6 @@ router.post("/login", controll.login)
 
 router.post("/registr", controll.registr)
 
-
-
+router.post("/add/vocab", controll.pushVocab)
 
 module.exports = router

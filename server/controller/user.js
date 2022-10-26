@@ -3,7 +3,7 @@ const token = require("../services/Token/token");
 
 const verifyUser = async (name, password) => {
   try {
-    const user = await userModel.findOne({name:name, password: password});
+    const user = await userModel.findOne({ name: name, password: password });
     if (!user) {
       return false;
     }
@@ -20,7 +20,7 @@ module.exports = {
       const { name, password } = req.body;
       const userVerified = await verifyUser(name, password);
       if (!userVerified) {
-       return res.json("Username or password is incorrect!");
+        return res.json("Username or password is incorrect!");
       }
 
       const user = await token.generateToken({ name, password });
@@ -43,20 +43,35 @@ module.exports = {
       await userModel.create({ name, password });
 
       const user = await token.generateToken({ name, password });
-      
+
       res.send(user);
     } catch (error) {
       return res.json("user is cannot be authorized");
     }
   },
-  vocab: async (req,res) => {
+  vocab: async (req, res) => {
     const verify = await token.verifyToken(req.headers.authorization)
-    const vocab = await userModel.findOne({name: verify.name, password: verify.password})
+    const vocab = await userModel.findOne({ name: verify.name, password: verify.password })
     res.json(vocab.vocab)
   },
-  vocabDes: async (req,res) => {
+  vocabDes: async (req, res) => {
     const verify = await token.verifyToken(req.headers.authorization)
-    const vocab = await userModel.findOne({name: verify.name, password: verify.password})
+    const vocab = await userModel.findOne({ name: verify.name, password: verify.password })
     res.json(vocab.vocabDes)
   }
 };
+
+module.exports.pushVocab = async (req, res) => {
+  try {
+    const { word, translate } = req.body
+    const verify = await token.verifyToken(req.headers.authorization)
+    await userModel.findOneAndUpdate({ name: verify.name }, {
+      $push: {
+        vocab: { word, translate }
+      }
+    })
+    res.send("Word added!")
+  } catch (error) {
+    res.send("Word not added!")
+  }
+}
