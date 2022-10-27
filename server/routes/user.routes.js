@@ -12,4 +12,6 @@ router.post("/registr", controll.registr)
 
 router.post("/add/vocab", controll.pushVocab)
 
+router.post("/add/vocabDes", controll.pushVocabDes)
+
 module.exports = router

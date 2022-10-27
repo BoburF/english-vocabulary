@@ -75,3 +75,18 @@ module.exports.pushVocab = async (req, res) => {
     res.send("Word not added!")
   }
 }
+
+module.exports.pushVocabDes = async (req, res) => {
+  try {
+    const { word, description } = req.body
+    const verify = await token.verifyToken(req.headers.authorization)
+    await userModel.findOneAndUpdate({ name: verify.name }, {
+      $push: {
+        vocabDes: { word, description }
+      }
+    })
+    res.send("Word added!")
+  } catch (error) {
+    res.send("Word not added!")
+  }
+}
