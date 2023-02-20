@@ -1,4 +1,4 @@
-const {Schema, model} = require('mongoose')
+const { Schema, model } = require('mongoose')
 
 const userSchema = new Schema({
     name: {
@@ -17,14 +17,6 @@ const userSchema = new Schema({
                 required: true
             },
             translate: {
-                type: String,
-                required: true
-            }
-        }
-    ],
-    vocabDes: [
-        {
-            word: {
                 type: String,
                 required: true
             },

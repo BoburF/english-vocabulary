@@ -1,18 +1,18 @@
-const jwt  = require("jsonwebtoken")
+const jwt = require("jsonwebtoken")
 const secret = process.env.KEY
 
-class Token{
-    async generateToken(user){
+class Token {
+    async generateToken(user) {
         return jwt.sign(user, secret, {
             expiresIn: "7d"
         })
     }
 
-    async verifyToken(user){
-        return jwt.verify(user, secret, (err, decodedToken)=>{
-            if(err){
+    async verifyToken(user) {
+        return jwt.verify(user, secret, (err, decodedToken) => {
+            if (err) {
                 return err
-            }else{
+            } else {
                 return decodedToken
             }
         })
