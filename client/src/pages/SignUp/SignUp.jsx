@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './SignUp.scss'
 import { Link } from 'react-router-dom';
+import { baseUrl, fetchRegister, path } from '../../scripts/fetchApi';
 
 const SignUp = () => {
   const [name, setName] = useState('')
@@ -24,11 +25,18 @@ const SignUp = () => {
     }
   }
 
-
+  async function submitHandle(e) {
+    e.preventDefault();
+    const data = {
+      name,
+      password
+    }
+    await fetchRegister(data)
+  }
 
   return (
     <div className='sign_up'>
-      <form className='form'>
+      <form className='form' onSubmit={(e) => submitHandle(e)}>
         <h2 className='title'>Sign Up</h2>
         <label className='label'>
           Name
