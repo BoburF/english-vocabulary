@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 export const baseUrl = 'http://localhost:5000';
 export const path = {
   register: '/auth/register',
@@ -19,21 +21,13 @@ export const getVocab = async (baseUrl, path, queryParams) => {
   return data;
 };
 export const fetchRegister = async (body) => {
-  const response = await fetch(`${baseUrl}${path.register}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(body),
-  });
-  const car = await response.json();
-  return car;
+  return await axios.post(`${baseUrl}${path.register}`, body)
+  .then((res) => res.data)
+  .catch((err) => {
+    console.log(err);
+  })
 };
-export const getUsers = async () => {
-  const response = await fetch(`${baseUrl}${path.register}`);
-  const car = await response.json();
-  return car;
-};
+
 export const fetchLogin = async (body) => {
   const response = await fetch(`${baseUrl}${path.login}`, {
     method: 'POST',

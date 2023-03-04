@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { fetchLogin } from '../../scripts/fetchApi';
 import './SignIn.scss';
 
@@ -8,6 +8,8 @@ const SignIn = () => {
   const [errorName, setErrorName] = useState('');
   const [password, setPassword] = useState('');
   const [errorPassword, seterrorPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
   const validName = () => {
     if (name.length < 5 && name.length > 1) {
@@ -31,13 +33,19 @@ const SignIn = () => {
       name,
       password,
     };
-    await fetchLogin(data);
+    await fetchLogin(data).then((res) => {
+      setErrorMessage(res);
+      if (res !== 'Username or password is incorrect!') {
+        navigate('/user');
+      }
+    });
   }
 
   return (
     <div className="sign_in">
-      <form className="form" onSubmit={submitHandler}>
+      <form className="form" onSubmit={(e) => submitHandler(e)}>
         <h2 className="title">Sign In</h2>
+        <p className="error-message">{errorMessage ? errorMessage : ''}</p>
         <label className="label">
           Name
           <input
