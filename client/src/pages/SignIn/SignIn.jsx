@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { fetchLogin } from '../../scripts/fetchApi';
+import useToken from '../../scripts/useToken';
 import './SignIn.scss';
 
 const SignIn = () => {
@@ -9,6 +10,7 @@ const SignIn = () => {
   const [password, setPassword] = useState('');
   const [errorPassword, seterrorPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const {token, setToken} = useToken();
   const navigate = useNavigate();
 
   const validName = () => {
@@ -34,9 +36,11 @@ const SignIn = () => {
       password,
     };
     await fetchLogin(data).then((res) => {
-      setErrorMessage(res);
       if (res !== 'Username or password is incorrect!') {
+        setToken(res)
         navigate('/user');
+      } else {
+        setErrorMessage(res);
       }
     });
   }
