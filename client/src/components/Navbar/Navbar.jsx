@@ -24,10 +24,10 @@ const Navbar = () => {
                 <NavLink to={"/"}>Home</NavLink>
               </li>
               <li className="sign_parent">
-                <NavLink className="sign" to={"/sign/in"}>Sign in</NavLink>
+                <NavLink className="sign" to={"/sign/in"}>Login</NavLink>
               </li>
               <li className="sign_parent">
-                <NavLink className="sign" to={"/sign/up"}>Sign up</NavLink>
+                <NavLink className="sign" to={"/sign/up"}>Register</NavLink>
               </li>
             </ul>
           </div>

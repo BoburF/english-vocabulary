@@ -52,7 +52,7 @@ const SignUp = () => {
   return (
     <div className="sign_up">
       <form className="form" onSubmit={(e) => submitHandle(e)}>
-        <h2 className="title">Sign Up</h2>
+        <h2 className="title">Register</h2>
         <p className="error-message">{errorMessage.toLocaleUpperCase()}</p>
         <label className="label">
           Name
@@ -84,7 +84,7 @@ const SignUp = () => {
         </label>
         <button>Continue</button>
         <Link className="to_sign_in" to="/sign/in">
-          Sign In
+          Login
         </Link>
       </form>
     </div>

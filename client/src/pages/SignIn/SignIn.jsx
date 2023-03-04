@@ -48,7 +48,7 @@ const SignIn = () => {
   return (
     <div className="sign_in">
       <form className="form" onSubmit={(e) => submitHandler(e)}>
-        <h2 className="title">Sign In</h2>
+        <h2 className="title">Login</h2>
         <p className="error-message">{errorMessage ? errorMessage : ''}</p>
         <label className="label">
           Name
@@ -80,7 +80,7 @@ const SignIn = () => {
         </label>
         <button>Continue</button>
         <Link className="to_sign_in" to="/sign/up">
-          Sign Up
+          Register
         </Link>
       </form>
     </div>

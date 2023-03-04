@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./Sidebar.scss";
 
 const Sidebar = () => {
@@ -109,7 +109,7 @@ const Sidebar = () => {
             <NavLink to={"/user/settings"}>Settings</NavLink>
           </li>
           <li className="user_vocab">
-            <NavLink to={"/user/logout"}>Log out</NavLink>
+            <Link to={"/"} onClick={() => sessionStorage.removeItem('token')}>Log out</Link>
           </li>
         </ul>
       </div>
