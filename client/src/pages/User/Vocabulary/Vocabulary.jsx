@@ -1,35 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { getAllVocab, postVocab } from '../../../scripts/fetchApi';
+import { deleteVocab, postVocab } from '../../../scripts/fetchApi';
 import Vocab from './Vocab/Vocab';
 import './Vocabulary.scss';
 
 const Vocabulary = () => {
-  const [wordD, setWordD] = useState([
-    {
-      word: 'Description',
-      translation: 'Translation',
-      description:
-        'izoh, bu oshanday shunday zor lorem12 asfnfnewfewkfn ewfnbewjf ewfnwefe',
-    },
-    {
-      word: 'Human',
-      translation: 'Odam',
-      description:
-        'odam odfmwkqdqw dwqindownq dwqdnoqwndw qdwqmdknwq dwqdnqwikndowqnd qwdnmowqikndoniwqd qwdnowqikndokniwqd qwdnwqndonwqid wqdiwqndonwqdowqikd ewfbewhbfwebfew fewjbfiewjbfijewf jugbweiujfbwe',
-    },
-  ]);
+  const [wordD, setWordD] = useState();
   const [word, setWord] = useState('');
   const [translate, setTranslate] = useState('');
   const [describ, setDescrib] = useState('');
+  const [vocabId, setVocabId] = useState('');
 
   async function onSubmitHandle(e) {
     e.preventDefault();
     const body = {
       word,
       translate,
-      describ
-    }
-    
+      describ,
+    };
+
     await postVocab(body);
   }
   function inputChangeHandler(e) {
@@ -44,6 +32,14 @@ const Vocabulary = () => {
     }
   }
 
+  useEffect(() => {
+    async function f() {
+      if (vocabId !== '') {
+        await deleteVocab(vocabId);
+      }
+    }
+    f();
+  }, [vocabId]);
   // async function getAllVocabulary() {
   //   console.log(await getAllVocab());
   // }
@@ -81,20 +77,26 @@ const Vocabulary = () => {
       <div className="voca">
         <div className="table right">
           <table>
-            <thead>
-              <tr>
-                <th>Word</th>
-                <th>Translation</th>
-                <th>Description</th>
-                <th className="none_mobile">Edit</th>
-                <th className="none_mobile">Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              {wordD.map((item, idx) => (
-                <Vocab item={item} key={idx} />
-              ))}
-            </tbody>
+            {wordD ? (
+              <>
+                <thead>
+                  <tr>
+                    <th>Word</th>
+                    <th>Translation</th>
+                    <th>Description</th>
+                    <th className="none_mobile">Edit</th>
+                    <th className="none_mobile">Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {wordD.map((item, idx) => (
+                    <Vocab item={item} key={idx} id={setVocabId} />
+                  ))}
+                </tbody>
+              </>
+            ) : (
+              <p style={{ width: '100%', fontSize: '30px' }}>No one word</p>
+            )}
           </table>
         </div>
       </div>
@@ -103,3 +105,19 @@ const Vocabulary = () => {
 };
 
 export default Vocabulary;
+// [
+//   {
+//     word: 'Description',
+//     translation: 'Translation',
+//     description:
+//       'izoh, bu oshanday shunday zor lorem12 asfnfnewfewkfn ewfnbewjf ewfnwefe',
+//     id: 1,
+//   },
+//   {
+//     word: 'Human',
+//     translation: 'Odam',
+//     description:
+//       'odam odfmwkqdqw dwqindownq dwqdnoqwndw qdwqmdknwq dwqdnqwikndowqnd qwdnmowqikndoniwqd qwdnowqikndokniwqd qwdnwqndonwqid wqdiwqndonwqdowqikd ewfbewhbfwebfew fewjbfiewjbfijewf jugbweiujfbwe',
+//     id: 2,
+//   },
+// ]

@@ -34,7 +34,7 @@ module.exports.DeleteVocab = async (req, res) => {
   const { id } = req.params
   const verify = await token.verifyToken(req.headers.authorization)
   const vocab = await userModel.findOne({ name: verify.name })
-  const object = vocab.vocab.find(obj => obj._id === id);
+  const object = vocab.vocab.find(obj => obj._id === +id);
   console.log(object);
 }
 

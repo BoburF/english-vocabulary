@@ -6,7 +6,7 @@ export const path = {
   login: '/auth/login',
   vocab: '/user/vocab',
   addVocab: '/user/add/vocab',
-  deleteVocab: '/user/delete/:id',
+  deleteVocab: '/user/delete',
 };
 const generateQueryString = (queryParams = []) =>
   queryParams.length
@@ -53,6 +53,11 @@ export const postVocab = async (body) => {
 };
 export const getAllVocab = async () => {
   const response = await fetch(`${baseUrl}${path.vocab}`);
+  const car = await response.json();
+  return car;
+};
+export const deleteVocab = async (id) => {
+  const response = await fetch(`${baseUrl}${path.deleteVocab}/${id}`, {method: 'DELETE'});
   const car = await response.json();
   return car;
 };
