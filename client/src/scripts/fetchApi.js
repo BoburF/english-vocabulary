@@ -4,9 +4,9 @@ export const baseUrl = 'http://localhost:5000';
 export const path = {
   register: '/auth/register',
   login: '/auth/login',
-  vocab: '/vocab',
-  addVocab: '/add/vocab',
-  deleteVocab: '/delete/:id',
+  vocab: '/user/vocab',
+  addVocab: '/user/add/vocab',
+  deleteVocab: '/user/delete/:id',
 };
 const generateQueryString = (queryParams = []) =>
   queryParams.length
@@ -36,6 +36,23 @@ export const fetchLogin = async (body) => {
     },
     body: JSON.stringify(body),
   });
+  const car = await response.json();
+  return car;
+};
+
+export const postVocab = async (body) => {
+  const response = await fetch(`${baseUrl}${path.addVocab}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+  const car = await response.json();
+  return car;
+};
+export const getAllVocab = async () => {
+  const response = await fetch(`${baseUrl}${path.vocab}`);
   const car = await response.json();
   return car;
 };

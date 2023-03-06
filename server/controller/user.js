@@ -5,6 +5,7 @@ const token = require("../services/Token/token");
 module.exports = {
   vocab: async (req, res) => {
     const verify = await token.verifyToken(req.headers.authorization)
+    console.log(verify);
     const vocab = await userModel.findOne({ name: verify.name })
     return res.json(vocab);
   }
@@ -22,10 +23,10 @@ module.exports.pushVocab = async (req, res) => {
       })
       return res.send("Word added!")
     } else {
-      return res.json("Token not found")
+      return res.status(400).json("Token not found")
     }
   } catch (error) {
-    return res.send("Word not added!")
+    return res.status(400).send("Word not added!")
   }
 }
 
