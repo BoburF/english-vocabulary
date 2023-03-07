@@ -5,7 +5,6 @@ const token = require("../services/Token/token");
 module.exports = {
   vocab: async (req, res) => {
     const verify = await token.verifyToken(req.headers.authorization)
-    console.log(verify);
     const vocab = await userModel.findOne({ name: verify.name })
     return res.json(vocab);
   }
@@ -15,6 +14,8 @@ module.exports.pushVocab = async (req, res) => {
   try {
     const { word, translate, description } = req.body
     const verify = await token.verifyToken(req.headers.authorization)
+    console.log(verify);
+
     if (verify.name !== "JsonWebTokenError") {
       await userModel.findOneAndUpdate({ name: verify.name }, {
         $push: {

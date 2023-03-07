@@ -1,24 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { deleteVocab, postVocab } from '../../../scripts/fetchApi';
+import { deleteVocab, getAllVocab, postVocab } from '../../../scripts/fetchApi';
 import Vocab from './Vocab/Vocab';
 import './Vocabulary.scss';
 
 const Vocabulary = () => {
   const [wordD, setWordD] = useState();
+  const [body, setBody] = useState();
   const [word, setWord] = useState('');
   const [translate, setTranslate] = useState('');
-  const [describ, setDescrib] = useState('');
+  const [description, setDescrib] = useState('');
   const [vocabId, setVocabId] = useState('');
 
   async function onSubmitHandle(e) {
     e.preventDefault();
-    const body = {
+    const data = {
       word,
       translate,
-      describ,
+      description,
     };
+    setBody(data)
+    console.log(data);
 
-    await postVocab(body);
+    const token = sessionStorage.getItem('token');
+    await postVocab(data, token);
   }
   function inputChangeHandler(e) {
     const { id, value } = e.target;
@@ -40,12 +44,18 @@ const Vocabulary = () => {
     }
     f();
   }, [vocabId]);
+
+  async function getAllVocabulary() {
+    const token = sessionStorage.getItem('token');
+    const getUser = await getAllVocab(token);
+    setWordD(getUser.vocab);
+  }
   // async function getAllVocabulary() {
   //   console.log(await getAllVocab());
   // }
-  // useEffect(() => {
-  //   getAllVocabulary()
-  // })
+  useEffect(() => {
+    getAllVocabulary()
+  }, [body])
 
   return (
     <div className="Vocabulary">
@@ -76,8 +86,8 @@ const Vocabulary = () => {
       </div>
       <div className="voca">
         <div className="table right">
-          <table>
-            {wordD ? (
+          {wordD ? (
+            <table>
               <>
                 <thead>
                   <tr>
@@ -94,10 +104,10 @@ const Vocabulary = () => {
                   ))}
                 </tbody>
               </>
-            ) : (
-              <p style={{ width: '100%', fontSize: '30px' }}>No one word</p>
-            )}
-          </table>
+            </table>
+          ) : (
+            <p style={{ width: '100%', fontSize: '30px' }}>No one word</p>
+          )}
         </div>
       </div>
     </div>
