@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'axios'
 
 export const baseUrl = 'http://localhost:5000';
 export const path = {
@@ -21,12 +21,11 @@ export const getVocab = async (baseUrl, path, queryParams) => {
   return data;
 };
 export const fetchRegister = async (body) => {
-  return await axios
-    .post(`${baseUrl}${path.register}`, body)
-    .then((res) => res.data)
-    .catch((err) => {
-      console.log(err);
-    });
+  return await axios.post(`${baseUrl}${path.register}`, body)
+  .then((res) => res.data)
+  .catch((err) => {
+    console.log(err);
+  })
 };
 
 export const fetchLogin = async (body) => {
@@ -40,25 +39,20 @@ export const fetchLogin = async (body) => {
   const car = await response.json();
   return car;
 };
-export const postVocab = async (body, token) => {
+
+export const postVocab = async (body) => {
   const response = await fetch(`${baseUrl}${path.addVocab}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: JSON.parse(token),
     },
     body: JSON.stringify(body),
   });
   const car = await response.json();
   return car;
 };
-export const getAllVocab = async (token) => {
-  const response = await fetch(`${baseUrl}${path.vocab}`, {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: JSON.parse(token),
-    },
-  });
+export const getAllVocab = async () => {
+  const response = await fetch(`${baseUrl}${path.vocab}`);
   const car = await response.json();
   return car;
 };

@@ -9,7 +9,6 @@ import './Vocabulary.scss';
 
 const Vocabulary = () => {
   const [wordD, setWordD] = useState();
-  const [body, setBody] = useState();
   const [word, setWord] = useState('');
   const [translate, setTranslate] = useState('');
   const [description, setDescrib] = useState('');
@@ -18,16 +17,15 @@ const Vocabulary = () => {
 
   async function onSubmitHandle(e) {
     e.preventDefault();
-    const data = {
+    const body = {
       word,
       translate,
-      description,
+      describ,
     };
     setBody(data);
     console.log(data);
 
-    const token = sessionStorage.getItem('token');
-    await postVocab(data, token);
+    await postVocab(body);
   }
   function inputChangeHandler(e) {
     const { id, value } = e.target;
@@ -49,17 +47,13 @@ const Vocabulary = () => {
       }
     }
     f();
-  }, [deleteItemId]);
-
-  async function getAllVocabulary() {
-    const token = sessionStorage.getItem('token');
-    const getUser = await getAllVocab(token);
-    console.log(getUser);
-    setWordD(getUser.vocab);
-  }
-  useEffect(() => {
-    getAllVocabulary();
-  }, [body]);
+  }, [vocabId]);
+  // async function getAllVocabulary() {
+  //   console.log(await getAllVocab());
+  // }
+  // useEffect(() => {
+  //   getAllVocabulary()
+  // })
 
   return (
     <div className="Vocabulary">
@@ -90,8 +84,8 @@ const Vocabulary = () => {
       </div>
       <div className="voca">
         <div className="table right">
-          {wordD ? (
-            <table>
+          <table>
+            {wordD ? (
               <>
                 <thead>
                   <tr>
@@ -113,9 +107,8 @@ const Vocabulary = () => {
                   ))}
                 </tbody>
               </>
-            </table>
-          ) : (
-            <p
+            ) : (
+              <p
               style={{
                 width: '100%',
                 fontSize: '30px',
@@ -125,7 +118,8 @@ const Vocabulary = () => {
             >
               No one word
             </p>
-          )}
+            )}
+          </table>
         </div>
       </div>
     </div>
