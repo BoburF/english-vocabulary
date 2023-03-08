@@ -1,31 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import {
-  deleteVocab,
-  getAllVocab,
-  postVocab,
-} from '../../../scripts/fetchApi';
+import { deleteVocab, getAllVocab, postVocab } from '../../../scripts/fetchApi';
 import Vocab from './Vocab/Vocab';
 import './Vocabulary.scss';
 
 const Vocabulary = () => {
-  const [wordD, setWordD] = useState();
+  const [wordD, setWordD] = useState([]);
   const [word, setWord] = useState('');
   const [translate, setTranslate] = useState('');
   const [description, setDescrib] = useState('');
   const [deleteItemId, setDeleteItemId] = useState('');
+  const [body, setBody] = useState('');
   // const [updateItemId, setUpdateItemId] = useState('');
 
+  function clearInputs() {
+    setTranslate('');
+    setDescrib('');
+    setWord('');
+  }
   async function onSubmitHandle(e) {
     e.preventDefault();
-    const body = {
+    const data = {
       word,
       translate,
-      describ,
+      description,
     };
     setBody(data);
-    console.log(data);
+    const token = sessionStorage.getItem('token');
 
-    await postVocab(body);
+    await postVocab(data, token);
+    clearInputs();
   }
   function inputChangeHandler(e) {
     const { id, value } = e.target;
@@ -47,13 +50,16 @@ const Vocabulary = () => {
       }
     }
     f();
-  }, [vocabId]);
-  // async function getAllVocabulary() {
-  //   console.log(await getAllVocab());
-  // }
-  // useEffect(() => {
-  //   getAllVocabulary()
-  // })
+  }, [deleteItemId]);
+
+  async function getAllVocabulary() {
+    const token = sessionStorage.getItem('token');
+    const getUser = await getAllVocab(token);
+    setWordD(getUser.vocab);
+  }
+  useEffect(() => {
+    getAllVocabulary();
+  }, [body]);
 
   return (
     <div className="Vocabulary">
@@ -65,17 +71,20 @@ const Vocabulary = () => {
               type="text"
               placeholder="Word..."
               id="word"
+              value={word}
               onChange={(e) => inputChangeHandler(e)}
             />
             <input
               type="text"
               placeholder="Translation..."
               id="translation"
+              value={translate}
               onChange={(e) => inputChangeHandler(e)}
             />
             <textarea
               placeholder="Description..."
               id="description"
+              value={description}
               onChange={(e) => inputChangeHandler(e)}
             />
             <button>Add to vocaboost</button>
@@ -84,31 +93,30 @@ const Vocabulary = () => {
       </div>
       <div className="voca">
         <div className="table right">
-          <table>
-            {wordD ? (
-              <>
-                <thead>
-                  <tr>
-                    <th>Word</th>
-                    <th>Translation</th>
-                    <th>Description</th>
-                    <th className="none_mobile">Edit</th>
-                    <th className="none_mobile">Delete</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {wordD.map((item, idx) => (
-                    <Vocab
-                      item={item}
-                      key={idx}
-                      deleteId={setDeleteItemId}
-                      // update={setUpdateItemId}
-                    />
-                  ))}
-                </tbody>
-              </>
-            ) : (
-              <p
+          {wordD.length > 0 ? (
+            <table>
+              <thead>
+                <tr>
+                  <th>Word</th>
+                  <th>Translation</th>
+                  <th>Description</th>
+                  <th className="none_mobile">Edit</th>
+                  <th className="none_mobile">Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                {wordD.map((item, idx) => (
+                  <Vocab
+                    item={item}
+                    key={idx}
+                    deleteId={setDeleteItemId}
+                    // update={setUpdateItemId}
+                  />
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <p
               style={{
                 width: '100%',
                 fontSize: '30px',
@@ -118,8 +126,7 @@ const Vocabulary = () => {
             >
               No one word
             </p>
-            )}
-          </table>
+          )}
         </div>
       </div>
     </div>

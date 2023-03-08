@@ -40,19 +40,25 @@ export const fetchLogin = async (body) => {
   return car;
 };
 
-export const postVocab = async (body) => {
+export const postVocab = async (body, token) => {
   const response = await fetch(`${baseUrl}${path.addVocab}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Authorization' : JSON.parse(token),
     },
     body: JSON.stringify(body),
   });
-  const car = await response.json();
-  return car;
+  return response;
 };
-export const getAllVocab = async () => {
-  const response = await fetch(`${baseUrl}${path.vocab}`);
+export const getAllVocab = async (token) => {
+  const response = await fetch(`${baseUrl}${path.vocab}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': JSON.parse(token),
+    }
+  });
   const car = await response.json();
   return car;
 };

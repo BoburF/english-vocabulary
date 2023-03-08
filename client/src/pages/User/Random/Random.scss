@@ -12,6 +12,18 @@
     }
 
     .random_word {
+        text-align: center;
+        .view-translate {
+            margin-top: 20px;
+        }
+
+        p {
+            border: 1px solid;
+            padding: 10px;
+            font-size: 22px;
+            text-align: center;
+        }
+
         button {
             padding: 10px 20px;
             background-color: var(--element);
@@ -23,11 +35,6 @@
             &:hover{
                 box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
             }
-        }
-        p{
-            height: 30px;
-            font-size: 22px;
-            text-align: center;
         }
     }
 }

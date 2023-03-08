@@ -10,7 +10,7 @@ const SignIn = () => {
   const [password, setPassword] = useState('');
   const [errorPassword, seterrorPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const {token, setToken} = useToken();
+  const { token, setToken } = useToken();
   const navigate = useNavigate();
 
   const validName = () => {
@@ -35,9 +35,10 @@ const SignIn = () => {
       name,
       password,
     };
+    console.log(data);
     await fetchLogin(data).then((res) => {
       if (res !== 'Username or password is incorrect!') {
-        setToken(res)
+        setToken(res);
         navigate('/user');
       } else {
         setErrorMessage(res);
