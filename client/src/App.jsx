@@ -9,9 +9,11 @@ import User from './pages/User/User';
 import Settings from './pages/User/Settings/Settings';
 import Random from './pages/User/Random/Random';
 import Vocabulary from './pages/User/Vocabulary/Vocabulary';
+import { useState } from 'react';
 
 function App() {
   const getToken = sessionStorage.getItem('token');
+
   return (
     <div className="App">
       <Routes>

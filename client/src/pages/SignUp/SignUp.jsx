@@ -35,6 +35,7 @@ const SignUp = () => {
       name,
       password,
     };
+    localStorage.setItem('username', name);
     await fetchRegister(data)
       .then((res) => {
         if (res !== 'this user already have got') {

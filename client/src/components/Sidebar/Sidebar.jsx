@@ -61,6 +61,8 @@ const Sidebar = () => {
     }
   };
 
+
+
   return (
     <>
       <div
@@ -96,7 +98,7 @@ const Sidebar = () => {
               <div className="user_img">
                 <img src="/img/avatar.webp" alt="" />
               </div>
-              <p>Username</p>
+              <p>{localStorage.getItem('username')}</p>
             </NavLink>
           </li>
           <li className="user_vocab">

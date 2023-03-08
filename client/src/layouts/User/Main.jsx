@@ -3,10 +3,10 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import "./Main.scss";
 
-const Main = () => {
+const Main = ({userName}) => {
   return (
     <div className="Main">
-      <Sidebar />
+      <Sidebar userName={userName} />
       <div className="page">
         <Outlet />
       </div>

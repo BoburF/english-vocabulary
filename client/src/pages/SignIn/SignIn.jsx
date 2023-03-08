@@ -35,7 +35,7 @@ const SignIn = () => {
       name,
       password,
     };
-    console.log(data);
+    localStorage.setItem('username', name);
     await fetchLogin(data).then((res) => {
       if (res !== 'Username or password is incorrect!') {
         setToken(res);

@@ -5,7 +5,6 @@ const token = require("../services/Token/token");
 module.exports = {
   vocab: async (req, res) => {
     const verify = await token.verifyToken(req.headers.authorization)
-    console.log(verify);
     const vocab = await userModel.findOne({ name: verify.name })
     return res.json(vocab);
   }
@@ -35,7 +34,6 @@ module.exports.DeleteVocab = async (req, res) => {
   const verify = await token.verifyToken(req.headers.authorization)
   const vocab = await userModel.findOne({ name: verify.name })
   const object = vocab.vocab.find(obj => obj._id === +id);
-  console.log(object);
 }
 
 module.exports.GetUsers = async (req, res) => {
