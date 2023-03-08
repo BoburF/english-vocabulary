@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { deleteVocab, getAllVocab, postVocab } from '../../../scripts/fetchApi';
+import {
+  deleteVocab,
+  getAllVocab,
+  postVocab,
+} from '../../../scripts/fetchApi';
 import Vocab from './Vocab/Vocab';
 import './Vocabulary.scss';
 
@@ -9,7 +13,8 @@ const Vocabulary = () => {
   const [word, setWord] = useState('');
   const [translate, setTranslate] = useState('');
   const [description, setDescrib] = useState('');
-  const [vocabId, setVocabId] = useState('');
+  const [deleteItemId, setDeleteItemId] = useState('');
+  // const [updateItemId, setUpdateItemId] = useState('');
 
   async function onSubmitHandle(e) {
     e.preventDefault();
@@ -18,7 +23,7 @@ const Vocabulary = () => {
       translate,
       description,
     };
-    setBody(data)
+    setBody(data);
     console.log(data);
 
     const token = sessionStorage.getItem('token');
@@ -38,24 +43,23 @@ const Vocabulary = () => {
 
   useEffect(() => {
     async function f() {
-      if (vocabId !== '') {
-        await deleteVocab(vocabId);
+      if (deleteItemId !== '') {
+        const token = sessionStorage.getItem('token');
+        await deleteVocab(deleteItemId, token);
       }
     }
     f();
-  }, [vocabId]);
+  }, [deleteItemId]);
 
   async function getAllVocabulary() {
     const token = sessionStorage.getItem('token');
     const getUser = await getAllVocab(token);
+    console.log(getUser);
     setWordD(getUser.vocab);
   }
-  // async function getAllVocabulary() {
-  //   console.log(await getAllVocab());
-  // }
   useEffect(() => {
-    getAllVocabulary()
-  }, [body])
+    getAllVocabulary();
+  }, [body]);
 
   return (
     <div className="Vocabulary">
@@ -100,13 +104,27 @@ const Vocabulary = () => {
                 </thead>
                 <tbody>
                   {wordD.map((item, idx) => (
-                    <Vocab item={item} key={idx} id={setVocabId} />
+                    <Vocab
+                      item={item}
+                      key={idx}
+                      deleteId={setDeleteItemId}
+                      // update={setUpdateItemId}
+                    />
                   ))}
                 </tbody>
               </>
             </table>
           ) : (
-            <p style={{ width: '100%', fontSize: '30px' }}>No one word</p>
+            <p
+              style={{
+                width: '100%',
+                fontSize: '30px',
+                textAlign: 'center',
+                marginTop: '20px',
+              }}
+            >
+              No one word
+            </p>
           )}
         </div>
       </div>

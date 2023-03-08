@@ -8,7 +8,6 @@ export const path = {
   addVocab: '/user/add/vocab',
   deleteVocab: '/user/delete',
 };
-const JWT = sessionStorage.getItem('token');
 const generateQueryString = (queryParams = []) =>
   queryParams.length
     ? `?${queryParams.map((x) => `${x.key}=${x.number}`).join('&')}`
@@ -63,9 +62,13 @@ export const getAllVocab = async (token) => {
   const car = await response.json();
   return car;
 };
-export const deleteVocab = async (id) => {
+export const deleteVocab = async (id, token) => {
   const response = await fetch(`${baseUrl}${path.deleteVocab}/${id}`, {
     method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': JSON.parse(token),
+    },
   });
   const car = await response.json();
   return car;
