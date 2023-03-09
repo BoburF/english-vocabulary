@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const baseUrl = 'http://localhost:5000';
+export const baseUrl = 'https://english-vocabulary-blush.vercel.app';
 export const path = {
   register: '/auth/register',
   login: '/auth/login',
