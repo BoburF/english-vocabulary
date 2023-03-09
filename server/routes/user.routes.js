@@ -1,10 +1,11 @@
 const { Router } = require('express')
 const router = Router()
-const controll = require("../controller/user")
+const { GetUsers, vocab, pushVocab, DeleteVocab, UpdateVocab } = require("../controller/user")
 
-router.get('/', controll.GetUsers)
-router.get("/vocab", controll.vocab)
-router.post("/add/vocab", controll.pushVocab)
-router.get("/delete/:id", controll.DeleteVocab)
+router.get('/', GetUsers)
+router.get("/vocab", vocab)
+router.post("/add/vocab", pushVocab)
+router.delete("/delete/:id", DeleteVocab)
+router.put("/update/:id", UpdateVocab)
 
 module.exports = router
