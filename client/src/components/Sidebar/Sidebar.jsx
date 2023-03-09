@@ -107,9 +107,9 @@ const Sidebar = () => {
           <li className="user_vocab">
             <NavLink to={"/user/random"}>Random word from vocabulary</NavLink>
           </li>
-          <li className="user_vocab">
+          {/* <li className="user_vocab">
             <NavLink to={"/user/settings"}>Settings</NavLink>
-          </li>
+          </li> */}
           <li className="user_vocab">
             <Link to={"/"} onClick={() => sessionStorage.removeItem('token')}>Log out</Link>
           </li>
