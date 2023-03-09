@@ -33,7 +33,20 @@ module.exports.DeleteVocab = async (req, res) => {
   const { id } = req.params
   const verify = await token.verifyToken(req.headers.authorization)
   const vocab = await userModel.findOne({ name: verify.name })
-  const object = vocab.vocab.find(obj => obj._id === +id);
+  if (vocab) {
+    const deleteVoc = vocab.vocab.filter((voc) => {
+      return voc._id != id;
+    });
+    if (deleteVoc) {
+      vocab.vocab = deleteVoc
+      await vocab.save()
+      return res.status(201).send({ message: `Word deleted`, success: true })
+    } else {
+      return res.status(404).send({ message: "ID not found!", success: false })
+    }
+  } else {
+    return res.status(400).send({ message: "Token not found", success: false })
+  }
 }
 
 module.exports.GetUsers = async (req, res) => {
