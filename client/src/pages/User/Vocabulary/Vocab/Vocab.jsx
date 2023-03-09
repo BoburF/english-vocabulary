@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Vocab = ({ item, deleteId }) => {
+const Vocab = ({ item, deleteId, update }) => {
   return (
     <>
       <tr>
@@ -8,7 +8,7 @@ const Vocab = ({ item, deleteId }) => {
         <td>{item.translate}</td>
         <td>{item.description}</td>
         <td className="none_mobile">
-          <div className="edit" onClick={() =>  alert('Update is not working')}>
+          <div className="edit" onClick={() => {update(item._id)}}>
             <i className="fa-solid fa-pencil"></i>
           </div>
         </td>

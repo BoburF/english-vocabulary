@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { deleteVocab, getAllVocab, postVocab } from '../../../scripts/fetchApi';
+import { deleteVocab, getAllVocab, postVocab, updateVocab } from '../../../scripts/fetchApi';
 import Vocab from './Vocab/Vocab';
 import './Vocabulary.scss';
 
@@ -7,14 +7,15 @@ const Vocabulary = () => {
   const [wordD, setWordD] = useState([]);
   const [word, setWord] = useState('');
   const [translate, setTranslate] = useState('');
-  const [description, setDescrib] = useState('');
+  const [description, setDescription] = useState('');
   const [deleteItemId, setDeleteItemId] = useState('');
-  const [body, setBody] = useState();
-  // const [updateItemId, setUpdateItemId] = useState('');
+  const [body, setBody] = useState({});
+  const [updateItemId, setUpdateItemId] = useState('');
+  const [isAddMode, setIsAddMode] = useState(false);
 
   function clearInputs() {
     setTranslate('');
-    setDescrib('');
+    setDescription('');
     setWord('');
   }
   async function onSubmitHandle(e) {
@@ -26,9 +27,10 @@ const Vocabulary = () => {
     };
     setBody(data);
     const token = sessionStorage.getItem('token');
-
-    await postVocab(data, token);
+    isAddMode ? await updateVocab(data, token, updateItemId) : await postVocab(data, token);
     clearInputs();
+    await getAllVocabulary();
+    setIsAddMode(false);
   }
   function inputChangeHandler(e) {
     const { id, value } = e.target;
@@ -38,7 +40,7 @@ const Vocabulary = () => {
     } else if (id === 'translation') {
       setTranslate(value);
     } else if (id === 'description') {
-      setDescrib(value);
+      setDescription(value);
     }
   }
 
@@ -66,6 +68,17 @@ const Vocabulary = () => {
     f()
   }, [body]);
 
+  useEffect(() => {
+    function updateVocabulary() {
+      const findVocab = wordD.filter((item) => item._id === updateItemId);
+      setIsAddMode(findVocab[0] ? true : false);
+      setWord(findVocab[0] ? findVocab[0].word : '');
+      setTranslate(findVocab[0] ? findVocab[0].translate : '');
+      setDescription(findVocab[0] ? findVocab[0].description : '');
+    }
+    updateVocabulary();
+  }, [updateItemId]);
+
   return (
     <div className="Vocabulary">
       <div className="type_vocabulary">
@@ -78,6 +91,7 @@ const Vocabulary = () => {
               id="word"
               value={word}
               onChange={(e) => inputChangeHandler(e)}
+              required
             />
             <input
               type="text"
@@ -85,14 +99,20 @@ const Vocabulary = () => {
               id="translation"
               value={translate}
               onChange={(e) => inputChangeHandler(e)}
+              required
             />
             <textarea
               placeholder="Description..."
               id="description"
               value={description}
               onChange={(e) => inputChangeHandler(e)}
+              required
             />
-            <button>Add to vocaboost</button>
+            {
+              !isAddMode ? 
+              <button>Add to vocaboost</button> 
+              : <button>Update vocabulary</button>
+            }
           </form>
         </div>
       </div>
@@ -115,7 +135,7 @@ const Vocabulary = () => {
                     item={item}
                     key={idx}
                     deleteId={setDeleteItemId}
-                    // update={setUpdateItemId}
+                    update={setUpdateItemId}
                   />
                 ))}
               </tbody>
