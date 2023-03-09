@@ -9,7 +9,7 @@ const Vocabulary = () => {
   const [translate, setTranslate] = useState('');
   const [description, setDescrib] = useState('');
   const [deleteItemId, setDeleteItemId] = useState('');
-  const [body, setBody] = useState('');
+  const [body, setBody] = useState();
   // const [updateItemId, setUpdateItemId] = useState('');
 
   function clearInputs() {
@@ -42,23 +42,28 @@ const Vocabulary = () => {
     }
   }
 
+  async function getAllVocabulary() {
+    const token = sessionStorage.getItem('token');
+    const getUser = await getAllVocab(token);
+    setWordD(getUser.vocab);
+  }
+
   useEffect(() => {
     async function f() {
       if (deleteItemId !== '') {
         const token = sessionStorage.getItem('token');
         await deleteVocab(deleteItemId, token);
       }
+      await getAllVocabulary();
     }
     f();
   }, [deleteItemId]);
 
-  async function getAllVocabulary() {
-    const token = sessionStorage.getItem('token');
-    const getUser = await getAllVocab(token);
-    setWordD(getUser.vocab);
-  }
   useEffect(() => {
-    getAllVocabulary();
+    async function f() {
+      await getAllVocabulary();
+    }
+    f()
   }, [body]);
 
   return (
