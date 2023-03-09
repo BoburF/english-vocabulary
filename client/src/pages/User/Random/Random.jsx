@@ -9,19 +9,18 @@ const Random = () => {
   const [viewTranslate, setViewTranslate] = useState(false);
 
   const Random = async () => {
-    // setRandom('mana');
     const rand = vocabluaries.sort(() => Math.random() - 0.5);
     setRandomNumber(Math.floor(Math.random() * rand.length));
     setRandom(rand);
     setViewTranslate(false);
   };
-  async function f() {
+  async function getAllVocabularies() {
     const token = sessionStorage.getItem('token');
     const getUser = await getAllVocab(token);
     setVocabluaries(getUser.vocab);
   }
   useEffect(() => {
-    f();
+    getAllVocabularies();
   }, []);
 
   return (
@@ -42,9 +41,10 @@ const Random = () => {
         >
           View translate
         </button>
-        <p>
-          {viewTranslate ? random[randomNumber].translate : 'View translate'}
-        </p>
+        <div>
+          <p style={{marginBottom: "10px", color: "green"}}>Translate: {viewTranslate ? random[randomNumber].translate : ''}</p>
+          <p style={{color: "blue"}}>Description: {viewTranslate ? random[randomNumber].description : ''}</p>
+        </div>
       </div>
     </div>
   );
